@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Liste des Produits</title>
+        <style type="text/css">
+            /* Style général de la page */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 30px;
+                color: #007BFF;
+            }
+
+            .table-container {
+                width: 80%;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Style du tableau */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #007BFF;
+                color: white;
+                font-size: 16px;
+            }
+
+            td {
+                font-size: 14px;
+            }
+
+            /* Style des boutons */
+            .button {
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                text-align: center;
+            }
+
+            .button:hover {
+                background-color: #218838;
+            }
+
+            .btn-view-cart {
+                background-color: #007BFF;
+            }
+
+            .btn-view-cart:hover {
+                background-color: #0056b3;
+            }
+
+            /* Style du panneau du bouton "Voir Mon Panier" */
+            .panel-group {
+                text-align: center;
+                margin-top: 20px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h1>Produits</h1>
+        <h:form>
+            <div class="table-container">
+                <h:dataTable value="#{produitBean.lister()}" var="produit" border="1" cellpadding="5">
+                    <h:column>
+                        <f:facet name="header">Nom</f:facet>
+                        #{produit.nom_produit}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Prix</f:facet>
+                        #{produit.prix}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Description</f:facet>
+                        #{produit.description}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+                        <h:commandButton value="Ajouter au Panier"
+                                         action="#{panierBean.ajouterProduit(produit.id_produit)}"
+                                         styleClass="button" />
+                    </h:column>
+                </h:dataTable>
+
+                <h:panelGroup styleClass="panel-group">
+                    <h:commandButton value="Voir Mon Panier"
+                                     action="monpanier.xhtml?faces-redirect=true"
+                                     styleClass="button btn-view-cart" />
+                </h:panelGroup>
+            </div>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

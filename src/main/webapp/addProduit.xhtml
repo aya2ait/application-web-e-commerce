@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Ajouter un Produit</title>
+        <style type="text/css">
+            /* Ciblage global du formulaire */
+            form {
+                width: 80%;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-top: 30px;
+            }
+
+            /* Ciblage des labels */
+            label {
+                font-size: 14px;
+                color: #333;
+            }
+
+            /* Ciblage des champs de texte et textarea */
+            input[type="text"], input[type="password"], textarea, select {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            /* Ciblage des boutons */
+            button {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Pour les messages d'erreur */
+            .error-message {
+                color: red;
+                font-size: 14px;
+            }
+
+            /* Pour les liens */
+            a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+
+        </style>
+    </h:head>
+    <h:body>
+        <h1>Ajouter un nouveau produit</h1>
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="nom" value="Nom du produit : " />
+                <h:inputText id="nom" value="#{produitBean.nomProduit}" required="true" />
+                <h:message for="nom" styleClass="error-message" />
+
+                <h:outputLabel for="prix" value="Prix : " />
+                <h:inputText id="prix" value="#{produitBean.prix}" required="true" />
+                <h:message for="prix" styleClass="error-message" />
+
+                <h:outputLabel for="description" value="Description : " />
+                <h:inputTextarea id="description" value="#{produitBean.description}" />
+                <h:message for="description" styleClass="error-message" />
+
+                <h:outputLabel for="quantite" value="Quantité en stock : " />
+                <h:inputText id="quantite" value="#{produitBean.quantiteStock}" required="true" />
+                <h:message for="quantite" styleClass="error-message" />
+
+                <h:outputLabel for="vitrine" value="Vitrine : " />
+                <h:selectOneMenu id="vitrine" value="#{produitBean.vitrine}">
+                    <f:selectItems value="#{produitBean.vitrines}" var="v" itemValue="#{v}" itemLabel="#{v.nom_vitrine}" />
+                    <f:converter converterId="VitrineConverter" />
+                </h:selectOneMenu>
+                <h:message for="vitrine" styleClass="error-message" />
+            </h:panelGrid>
+
+            <h:commandButton value="Ajouter" action="#{produitBean.save}" />
+            <h:commandButton value="Voir la liste des produits" action="listProduit.xhtml" />
+        </h:form>
+    </h:body>
+</f:view>
+</html>

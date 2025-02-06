@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Gestion des Vitrines</title>
+        <style type="text/css">
+            /* Style global de la page */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+            h1 {
+                color: #007bff;
+                margin-top: 20px;
+            }
+
+            /* Style du formulaire */
+            .form-container {
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                width: 50%;
+                margin: 20px auto;
+                text-align: left;
+            }
+
+
+
+
+
+
+
+            /* Style de la table */
+            table {
+                width: 80%;
+                margin: 20px auto;
+                border-collapse: collapse;
+                background-color: white;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f1f1f1;
+                font-weight: bold;
+            }
+
+            td {
+                background-color: #fff;
+                font-size: 14px;
+            }
+
+            td:hover {
+                background-color: #f9f9f9;
+            }
+
+            /* Style des boutons dans la table */
+            .table-button {
+                padding: 8px 16px;
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .table-button:hover {
+                background-color: #c82333;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h1>Ajouter une Vitrine</h1>
+        <h:form class="form-container">
+            <h:panelGrid columns="1" cellpadding="5">
+                <!-- Champ pour le nom de la vitrine -->
+                <h:outputLabel for="nom" value="Nom de la vitrine : " />
+                <h:inputText id="nom" value="#{vitrineBean.nomVitrine}" required="true" />
+            </h:panelGrid>
+
+            <!-- Bouton pour sauvegarder la vitrine -->
+            <h:commandButton value="Ajouter" action="#{vitrineBean.save}" />
+        </h:form>
+
+        <h1>Liste des Vitrines</h1>
+        <h:form>
+            <h:dataTable value="#{vitrineBean.lister()}" var="vitrine" border="1" cellpadding="5">
+                <!-- Colonne pour l'ID de la vitrine -->
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:outputText value="#{vitrine.id_vitrine}" />
+                </h:column>
+
+                <!-- Colonne pour le nom de la vitrine -->
+                <h:column>
+                    <f:facet name="header">Nom de la Vitrine</f:facet>
+                    <h:outputText value="#{vitrine.nom_vitrine}" />
+                </h:column>
+
+                <!-- Colonne pour les actions (Suppression) -->
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton value="Supprimer" action="#{vitrineBean.supprimer(vitrine.id_vitrine)}">
+                        <f:ajax render="@form" />
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

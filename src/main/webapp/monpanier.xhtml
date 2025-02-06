@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Mon Panier</title>
+        <style type="text/css">
+            /* Style global pour la page */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* En-tête de la page */
+            h1 {
+                text-align: center;
+                color: #007BFF;
+                margin-top: 30px;
+            }
+
+            /* Mise en forme du formulaire */
+            form {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Style du bouton */
+            .command-button {
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .command-button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Style du tableau */
+            .data-table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
+
+            .data-table td, .data-table th {
+                padding: 12px;
+                border-bottom: 1px solid #ddd;
+                text-align: center;
+            }
+
+            .data-table th {
+                font-weight: bold;
+                background-color: #007BFF;
+                color: white;
+            }
+
+            .data-table td {
+                background-color: #fafafa;
+            }
+
+            /* Panneau Total du Panier */
+            .panel-group {
+                margin-top: 20px;
+                font-size: 18px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            /* Total du panier */
+            .total-price {
+                font-size: 18px;
+                font-weight: bold;
+                color: #007BFF;
+            }
+
+
+
+        </style>
+    </h:head>
+    <h:body>
+        <h1>Votre Panier</h1>
+        <h:form>
+            <!-- Bouton pour charger le panier -->
+            <h:commandButton value="Charger le Panier" action="#{panierBean.chargerPanier}" styleClass="command-button" />
+
+            <!-- Tableau des produits dans le panier -->
+            <h:dataTable value="#{panierBean.panier.produits.entrySet().toArray()}" var="item" border="1" cellpadding="5" styleClass="data-table">
+                <h:column>
+                    <f:facet name="header">Nom du Produit</f:facet>
+                    #{item.key.nom_produit}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Prix</f:facet>
+                    #{item.key.prix} MAD
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantité</f:facet>
+                    #{item.value}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Sous-total</f:facet>
+                    #{item.key.prix * item.value} MAD
+                </h:column>
+            </h:dataTable>
+
+            <!-- Panneau affichant le total du panier -->
+            <h:panelGroup styleClass="panel-group">
+                <h:outputText value="Total du Panier : " />
+                <h:outputText value="#{panierBean.calculerTotal()} MAD" styleClass="total-price" />
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

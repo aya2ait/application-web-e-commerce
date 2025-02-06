@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Liste des Paniers</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        .table-container {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .table-container td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Style pour les boutons */
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Applique un style sur chaque cellule de données */
+        .data-cell {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h3>Liste des paniers</h3>
+
+    <h:form>
+        <!-- Utilisation du tableau personnalisé -->
+        <table class="table-container">
+            <thead>
+            <tr>
+                <th>ID Panier</th>
+                <th>Date de création</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Affichage des paniers -->
+            <h:dataTable value="#{panierBean.listerPaniers()}" var="panier">
+                <h:column>
+                    <h:outputText value="#{panier.id}" styleClass="data-cell"/>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{panier.dateCreation}" styleClass="data-cell"/>
+                </h:column>
+                <h:column>
+                    <!-- Ajout du bouton de suppression avec style -->
+                    <h:commandButton value="Supprimer" action="#{panierBean.supprimerPanier(panier.id)}" class="button" />
+                </h:column>
+            </h:dataTable>
+            </tbody>
+        </table>
+    </h:form>
+</h:body>
+</html>
